@@ -1,113 +1,259 @@
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
-    View,
-    Text,
-    TextInput,
-    Pressable,
-    StyleSheet,
-    Alert,
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 import { router } from 'expo-router';
 
 export default function Login() {
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [mostrarSenha, setMostrarSenha] = useState(false);
 
-    function entrar() {
-        if (!email || !senha) {
-            Alert.alert('Atenção', 'Preencha seu e-mail e sua senha.');
-            return;
-        }
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor="#FFFFFF" barStyle="dark-content" />
 
-        router.replace('/(tabs)/mapa');
-    }
+      {/* Cabeçalho */}
+      <View style={styles.header}>
+        <Image
+          source={require('../../assets/images/logo-bmap.jpg')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.logo}>BMap</Text>
-            <Text style={styles.title}>Bem-vindo de volta!</Text>
-            <Text style={styles.subtitle}>Entre na sua conta</Text>
+        <Text style={styles.brand}>BMap</Text>
+      </View>
 
-            <TextInput
-                style={styles.input}
-                placeholder="E-mail"
-                placeholderTextColor="#888"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
+      {/* Conteúdo */}
+      <View style={styles.content}>
+        <Text style={styles.title}>
+          Que bom ter você aqui!
+        </Text>
 
-            <TextInput
-                style={styles.input}
-                placeholder="Senha"
-                placeholderTextColor="#888"
-                value={senha}
-                onChangeText={setSenha}
-                secureTextEntry
-            />
+        <Text style={styles.subtitle}>
+          Entre na sua conta e continue explorando o mundo.
+        </Text>
 
-            <Pressable style={styles.button} onPress={entrar}>
-                <Text style={styles.buttonText}>Entrar</Text>
-            </Pressable>
+        {/* E-mail */}
+        <TextInput
+          style={styles.input}
+          placeholder="E-mail"
+          placeholderTextColor="#888888"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
 
-            <Text style={styles.register}>
-                Ainda não tem uma conta? Cadastre-se em breve!
+        {/* Senha com botão de visibilidade */}
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            placeholder="Senha"
+            placeholderTextColor="#888888"
+            secureTextEntry={!mostrarSenha}
+            value={senha}
+            onChangeText={setSenha}
+          />
+
+          <TouchableOpacity
+            onPress={() => setMostrarSenha(!mostrarSenha)}
+            style={styles.eyeButton}
+            accessibilityRole="button"
+            accessibilityLabel={
+              mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'
+            }
+          >
+            <Text style={styles.eyeIcon}>
+              {mostrarSenha ? '⊘' : '◉'}
             </Text>
+          </TouchableOpacity>
         </View>
-    );
+
+        {/* Entrar */}
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Entrar</Text>
+        </TouchableOpacity>
+
+        {/* Recuperar senha */}
+        <TouchableOpacity>
+          <Text style={styles.forgotPassword}>
+            Esqueci minha senha
+          </Text>
+        </TouchableOpacity>
+
+        {/* Cadastro */}
+        <View style={styles.registerContainer}>
+          <Text style={styles.registerText}>
+            Ainda não tem uma conta?
+          </Text>
+
+          <TouchableOpacity onPress={() => router.push('/cadastro')}>
+            <Text style={styles.registerLink}> Cadastre-se</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Termos e privacidade */}
+        <Text style={styles.terms}>
+          Ao continuar, você concorda com nossos{' '}
+          <Text style={styles.termsLink}>Termos de Uso</Text>
+          {' '}e{' '}
+          <Text style={styles.termsLink}>Política de Privacidade</Text>.
+        </Text>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        justifyContent: 'center',
-        padding: 30,
-    },
-    logo: {
-        color: '#7040A5',
-        fontSize: 42,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 35,
-    },
-    title: {
-        color: '#333333',
-        fontSize: 25,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    subtitle: {
-        color: '#777777',
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 8,
-        marginBottom: 35,
-    },
-    input: {
-        backgroundColor: '#F3EFF8',
-        borderRadius: 12,
-        padding: 16,
-        marginBottom: 15,
-        fontSize: 16,
-    },
-    button: {
-        backgroundColor: '#7040A5',
-        padding: 16,
-        borderRadius: 12,
-        alignItems: 'center',
-        marginTop: 10,
-    },
-    buttonText: {
-        color: '#FFFFFF',
-        fontSize: 17,
-        fontWeight: 'bold',
-    },
-    register: {
-        color: '#777777',
-        textAlign: 'center',
-        marginTop: 25,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 25,
+  },
+
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 25,
+  },
+
+  logo: {
+    width: 75,
+    height: 75,
+  },
+
+  brand: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#7040A5',
+    marginLeft: 10,
+  },
+
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#7040A5',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+
+  subtitle: {
+    fontSize: 15,
+    lineHeight: 23,
+    color: '#666666',
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+
+  input: {
+    width: '100%',
+    height: 52,
+    borderWidth: 1,
+    borderColor: '#D8CBE8',
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    marginBottom: 16,
+    fontSize: 15,
+    color: '#333333',
+  },
+
+  passwordContainer: {
+    width: '100%',
+    height: 52,
+    borderWidth: 1,
+    borderColor: '#D8CBE8',
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+
+  passwordInput: {
+    flex: 1,
+    height: '100%',
+    paddingHorizontal: 15,
+    fontSize: 15,
+    color: '#333333',
+  },
+
+  eyeButton: {
+    paddingHorizontal: 15,
+    height: '100%',
+    justifyContent: 'center',
+  },
+
+  eyeIcon: {
+    fontSize: 19,
+  },
+
+  button: {
+    width: '80%',
+    alignSelf: 'center',
+    backgroundColor: '#7040A5',
+    paddingVertical: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+
+  forgotPassword: {
+    color: '#2872D8',
+    fontSize: 13,
+    marginTop: 18,
+  },
+
+  registerContainer: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 35,
+  },
+
+  registerText: {
+    color: '#666666',
+    fontSize: 13,
+  },
+
+  registerLink: {
+    color: '#7040A5',
+    fontSize: 13,
+    fontWeight: 'bold',
+  },
+
+  terms: {
+    fontSize: 11,
+    color: '#777777',
+    textAlign: 'center',
+    lineHeight: 18,
+    marginTop: 30,
+    paddingHorizontal: 5,
+  },
+
+  termsLink: {
+    color: '#7040A5',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+  },
 });

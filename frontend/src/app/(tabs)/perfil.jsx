@@ -1,143 +1,448 @@
 
+import React, { useState } from 'react';
+
 import {
     View,
     Text,
-    Pressable,
-    ScrollView,
     StyleSheet,
+    StatusBar,
+    TouchableOpacity,
+    ScrollView,
+    Alert,
 } from 'react-native';
 
+import { Ionicons } from '@expo/vector-icons';
+import BottomNav from '../components/BottomNav';
+
 export default function Perfil() {
+    const [nome] = useState('Usuário BMap');
+
+    const avisar = (recurso) => {
+        Alert.alert(
+            'BMap',
+            `${recurso} será integrado em breve!`
+        );
+    };
+
     const opcoes = [
-        { id: 1, icon: '👤', nome: 'Editar perfil' },
-        { id: 2, icon: '♿', nome: 'Preferências de acessibilidade' },
-        { id: 3, icon: '🔔', nome: 'Notificações' },
-        { id: 4, icon: '🔒', nome: 'Privacidade e segurança' },
-        { id: 5, icon: '❓', nome: 'Ajuda e suporte' },
+        {
+            titulo: 'Meus dados',
+            descricao: 'Informações pessoais e conta',
+            icone: 'person-outline',
+        },
+        {
+            titulo: 'Acessibilidade',
+            descricao: 'Configure suas preferências',
+            icone: 'accessibility-outline',
+        },
+        {
+            titulo: 'Notificações',
+            descricao: 'Gerencie seus avisos',
+            icone: 'notifications-outline',
+        },
+        {
+            titulo: 'Privacidade e segurança',
+            descricao: 'Controle seus dados',
+            icone: 'shield-checkmark-outline',
+        },
+        {
+            titulo: 'Ajuda e suporte',
+            descricao: 'Precisa de ajuda?',
+            icone: 'help-circle-outline',
+        },
     ];
 
     return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.title}>Meu perfil</Text>
+        <View style={styles.container}>
+            <StatusBar
+                backgroundColor="#F8F6FC"
+                barStyle="dark-content"
+            />
 
-            <View style={styles.profile}>
-                <View style={styles.avatar}>
-                    <Text style={styles.avatarText}>👤</Text>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.content}
+            >
+                {/* CABEÇALHO */}
+                <View style={styles.header}>
+                    <View>
+                        <Text style={styles.logo}>BMap</Text>
+                        <Text style={styles.subtitle}>Sua conta</Text>
+                    </View>
+
+                    <TouchableOpacity
+                        style={styles.settingsButton}
+                        onPress={() => avisar('Configurações')}
+                    >
+                        <Ionicons
+                            name="settings-outline"
+                            size={24}
+                            color="#7040A5"
+                        />
+                    </TouchableOpacity>
                 </View>
 
-                <Text style={styles.name}>Usuário BMap</Text>
-                <Text style={styles.email}>usuario@email.com</Text>
+                {/* PERFIL */}
+                <View style={styles.profileCard}>
+                    <View style={styles.avatar}>
+                        <Ionicons
+                            name="person"
+                            size={52}
+                            color="#7040A5"
+                        />
+                    </View>
 
-                <Pressable style={styles.editButton}>
-                    <Text style={styles.editText}>Editar informações</Text>
-                </Pressable>
-            </View>
+                    <Text style={styles.userName}>{nome}</Text>
 
-            <Text style={styles.sectionTitle}>Configurações</Text>
+                    <Text style={styles.userEmail}>
+                        usuario@bmap.com
+                    </Text>
 
-            {opcoes.map((opcao) => (
-                <Pressable key={opcao.id} style={styles.option}>
-                    <Text style={styles.optionIcon}>{opcao.icon}</Text>
-                    <Text style={styles.optionText}>{opcao.nome}</Text>
-                    <Text style={styles.arrow}>›</Text>
-                </Pressable>
-            ))}
+                    <TouchableOpacity
+                        style={styles.editButton}
+                        onPress={() => avisar('Editar perfil')}
+                    >
+                        <Ionicons
+                            name="create-outline"
+                            size={17}
+                            color="#7040A5"
+                        />
+                        <Text style={styles.editText}>
+                            Editar perfil
+                        </Text>
+                    </TouchableOpacity>
+                </View>
 
-            <Pressable style={styles.logout}>
-                <Text style={styles.logoutText}>Sair da conta</Text>
-            </Pressable>
-        </ScrollView>
+                {/* RESUMO */}
+                <Text style={styles.sectionTitle}>
+                    Minha experiência
+                </Text>
+
+                <View style={styles.summaryContainer}>
+                    <TouchableOpacity
+                        style={styles.summaryCard}
+                        onPress={() => avisar('Meus favoritos')}
+                    >
+                        <Ionicons
+                            name="heart"
+                            size={25}
+                            color="#D94C75"
+                        />
+                        <Text style={styles.summaryNumber}>03</Text>
+                        <Text style={styles.summaryLabel}>
+                            Favoritos
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.summaryCard}
+                        onPress={() => avisar('Histórico')}
+                    >
+                        <Ionicons
+                            name="time-outline"
+                            size={25}
+                            color="#7040A5"
+                        />
+                        <Text style={styles.summaryNumber}>--</Text>
+                        <Text style={styles.summaryLabel}>
+                            Histórico
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* CONFIGURAÇÕES */}
+                <Text style={styles.sectionTitle}>
+                    Preferências e configurações
+                </Text>
+
+                <View style={styles.optionsCard}>
+                    {opcoes.map((opcao, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            style={[
+                                styles.option,
+                                index !== opcoes.length - 1 &&
+                                    styles.optionBorder,
+                            ]}
+                            onPress={() => avisar(opcao.titulo)}
+                        >
+                            <View style={styles.optionIcon}>
+                                <Ionicons
+                                    name={opcao.icone}
+                                    size={23}
+                                    color="#7040A5"
+                                />
+                            </View>
+
+                            <View style={styles.optionInfo}>
+                                <Text style={styles.optionTitle}>
+                                    {opcao.titulo}
+                                </Text>
+
+                                <Text style={styles.optionDescription}>
+                                    {opcao.descricao}
+                                </Text>
+                            </View>
+
+                            <Ionicons
+                                name="chevron-forward"
+                                size={20}
+                                color="#AAA2B2"
+                            />
+                        </TouchableOpacity>
+                    ))}
+                </View>
+
+                {/* SOBRE */}
+                <TouchableOpacity
+                    style={styles.aboutButton}
+                    onPress={() => avisar('Sobre o BMap')}
+                >
+                    <Ionicons
+                        name="information-circle-outline"
+                        size={21}
+                        color="#7040A5"
+                    />
+                    <Text style={styles.aboutText}>
+                        Sobre o BMap
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.logoutButton}
+                    onPress={() => avisar('Sair da conta')}
+                >
+                    <Ionicons
+                        name="log-out-outline"
+                        size={20}
+                        color="#D94C75"
+                    />
+                    <Text style={styles.logoutText}>
+                        Sair da conta
+                    </Text>
+                </TouchableOpacity>
+
+                <Text style={styles.version}>
+                    BMap • Versão 1.0.0
+                </Text>
+
+                <Text style={styles.footer}>
+                    Acessibilidade para todos 💜
+                </Text>
+            </ScrollView>
+
+            <BottomNav />
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F8F6FC',
+    },
+
+    content: {
         padding: 20,
-        paddingTop: 55,
+        paddingBottom: 25,
     },
-    title: {
-        color: '#7040A5',
-        fontSize: 28,
+
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 25,
+    },
+
+    logo: {
+        fontSize: 23,
         fontWeight: 'bold',
+        color: '#7040A5',
     },
-    profile: {
+
+    subtitle: {
+        fontSize: 12,
+        color: '#777777',
+        marginTop: 3,
+    },
+
+    settingsButton: {
+        width: 44,
+        height: 44,
+        borderRadius: 14,
+        backgroundColor: '#EFE8F8',
         alignItems: 'center',
-        backgroundColor: '#F5F1F9',
-        padding: 25,
-        borderRadius: 16,
-        marginTop: 25,
-        marginBottom: 30,
-    },
-    avatar: {
-        width: 85,
-        height: 85,
-        borderRadius: 45,
-        backgroundColor: '#E5D9F0',
         justifyContent: 'center',
+    },
+
+    profileCard: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 22,
+        padding: 24,
         alignItems: 'center',
+        marginBottom: 27,
+        elevation: 3,
     },
-    avatarText: {
-        fontSize: 40,
+
+    avatar: {
+        width: 105,
+        height: 105,
+        borderRadius: 53,
+        backgroundColor: '#EFE8F8',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 14,
     },
-    name: {
-        color: '#333',
+
+    userName: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginTop: 12,
+        color: '#30243D',
     },
-    email: {
-        color: '#777',
+
+    userEmail: {
+        fontSize: 12,
+        color: '#89818F',
         marginTop: 5,
     },
+
     editButton: {
-        backgroundColor: '#7040A5',
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#F3EEF8',
+        paddingHorizontal: 17,
         paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 10,
-        marginTop: 15,
+        borderRadius: 12,
+        marginTop: 17,
     },
+
     editText: {
-        color: '#FFFFFF',
+        fontSize: 12,
         fontWeight: 'bold',
+        color: '#7040A5',
+        marginLeft: 7,
     },
+
     sectionTitle: {
-        color: '#333',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: 12,
+        color: '#30243D',
+        marginBottom: 13,
     },
+
+    summaryContainer: {
+        flexDirection: 'row',
+        gap: 13,
+        marginBottom: 27,
+    },
+
+    summaryCard: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 17,
+        padding: 17,
+        alignItems: 'center',
+        elevation: 2,
+    },
+
+    summaryNumber: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        color: '#30243D',
+        marginTop: 9,
+    },
+
+    summaryLabel: {
+        fontSize: 11,
+        color: '#89818F',
+        marginTop: 3,
+    },
+
+    optionsCard: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 18,
+        paddingHorizontal: 15,
+        marginBottom: 20,
+        elevation: 2,
+    },
+
     option: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#F7F5F9',
-        padding: 16,
-        borderRadius: 12,
-        marginBottom: 10,
+        paddingVertical: 15,
     },
+
+    optionBorder: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#F0ECF4',
+    },
+
     optionIcon: {
-        fontSize: 21,
+        width: 42,
+        height: 42,
+        borderRadius: 13,
+        backgroundColor: '#F3EEF8',
+        alignItems: 'center',
+        justifyContent: 'center',
         marginRight: 12,
     },
-    optionText: {
+
+    optionInfo: {
         flex: 1,
-        color: '#444',
-        fontSize: 14,
     },
-    arrow: {
-        color: '#7040A5',
-        fontSize: 23,
-    },
-    logout: {
-        alignItems: 'center',
-        padding: 18,
-        marginTop: 10,
-        marginBottom: 30,
-    },
-    logoutText: {
-        color: '#D64545',
+
+    optionTitle: {
+        fontSize: 13,
         fontWeight: 'bold',
+        color: '#30243D',
+    },
+
+    optionDescription: {
+        fontSize: 10,
+        color: '#89818F',
+        marginTop: 4,
+    },
+
+    aboutButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 14,
+    },
+
+    aboutText: {
+        fontSize: 12,
+        color: '#7040A5',
+        fontWeight: 'bold',
+        marginLeft: 8,
+    },
+
+    logoutButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 14,
+        marginTop: 3,
+    },
+
+    logoutText: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: '#D94C75',
+        marginLeft: 8,
+    },
+
+    version: {
+        textAlign: 'center',
+        fontSize: 10,
+        color: '#AAA2B2',
+        marginTop: 15,
+    },
+
+    footer: {
+        textAlign: 'center',
+        fontSize: 11,
+        color: '#A49BAE',
+        marginTop: 8,
     },
 });
-

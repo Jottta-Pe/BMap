@@ -1,46 +1,66 @@
 
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import React from 'react';
+
+import {
+    View,
+    Text,
+    TextInput,
+    StyleSheet,
+    StatusBar,
+    TouchableOpacity,
+    Alert,
+} from 'react-native';
+
+import { Ionicons } from '@expo/vector-icons';
+import { Map, Camera } from '@maplibre/maplibre-react-native';
+import BottomNav from '../components/BottomNav';
 
 export default function Mapa() {
+    const aviso = (recurso) => {
+        Alert.alert('BMap', `${recurso} será integrado em breve!`);
+    };
+
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.logo}>BMap</Text>
-                <Text style={styles.subtitle}>Encontre lugares acessíveis</Text>
-            </View>
+            <StatusBar backgroundColor="#FFFFFF" barStyle="dark-content" />
 
-            <TextInput
-                style={styles.search}
-                placeholder="Buscar local ou endereço..."
-                placeholderTextColor="#888"
-            />
+            <View style={styles.searchContainer}>
+                <Ionicons name="search" size={22} color="#7040A5" />
 
-            <Text style={styles.sectionTitle}>Recursos de acessibilidade</Text>
+                <TextInput
+                    style={styles.searchInput}
+                    placeholder="Para onde vamos?"
+                    placeholderTextColor="#888888"
+                />
 
-            <View style={styles.filters}>
-                <Pressable style={styles.filter}>
-                    <Text style={styles.filterIcon}>♿</Text>
-                    <Text style={styles.filterText}>Mobilidade</Text>
-                </Pressable>
-
-                <Pressable style={styles.filter}>
-                    <Text style={styles.filterIcon}>👁</Text>
-                    <Text style={styles.filterText}>Visual</Text>
-                </Pressable>
-
-                <Pressable style={styles.filter}>
-                    <Text style={styles.filterIcon}>🤟</Text>
-                    <Text style={styles.filterText}>Libras</Text>
-                </Pressable>
+                <TouchableOpacity onPress={() => aviso('Filtros')}>
+                    <Ionicons name="options-outline" size={24} color="#7040A5" />
+                </TouchableOpacity>
             </View>
 
             <View style={styles.map}>
-                <Text style={styles.mapIcon}>📍</Text>
-                <Text style={styles.mapText}>Mapa de locais acessíveis</Text>
-                <Text style={styles.mapSubtext}>
-                    Área reservada para o mapa interativo
-                </Text>
+                <Map
+                    style={StyleSheet.absoluteFillObject}
+                    mapStyle="https://demotiles.maplibre.org/style.json"
+                    androidView="texture"
+                >
+                    <Camera
+                        initialViewState={{
+                            center: [-46.6333, -23.5505],
+                            zoom: 13,
+                        }}
+                    />
+                </Map>
+
+                <TouchableOpacity
+                    style={styles.locationButton}
+                    onPress={() => aviso('Sua localização')}
+                >
+                    <Ionicons name="locate" size={24} color="#7040A5" />
+                </TouchableOpacity>
             </View>
+
+            <BottomNav />
         </View>
     );
 }
@@ -49,75 +69,48 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFFFFF',
-        padding: 20,
-        paddingTop: 55,
     },
-    header: {
-        marginBottom: 20,
-    },
-    logo: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: '#7040A5',
-    },
-    subtitle: {
-        fontSize: 14,
-        color: '#777',
-        marginTop: 4,
-    },
-    search: {
-        backgroundColor: '#F3EFF8',
-        padding: 16,
-        borderRadius: 12,
-        fontSize: 15,
-    },
-    sectionTitle: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#333',
-        marginTop: 25,
-        marginBottom: 12,
-    },
-    filters: {
+
+    searchContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        gap: 8,
-    },
-    filter: {
-        flex: 1,
-        backgroundColor: '#F3EFF8',
-        padding: 12,
-        borderRadius: 12,
         alignItems: 'center',
+        backgroundColor: '#FFFFFF',
+        marginHorizontal: 20,
+        marginTop: 18,
+        marginBottom: 12,
+        paddingHorizontal: 16,
+        height: 55,
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#E5DCEF',
+        elevation: 3,
+        zIndex: 2,
     },
-    filterIcon: {
-        fontSize: 25,
+
+    searchInput: {
+        flex: 1,
+        marginHorizontal: 12,
+        fontSize: 15,
+        color: '#333333',
     },
-    filterText: {
-        color: '#7040A5',
-        fontSize: 12,
-        marginTop: 6,
-    },
+
     map: {
         flex: 1,
-        backgroundColor: '#EEE8F5',
-        borderRadius: 16,
-        marginTop: 25,
-        justifyContent: 'center',
+        backgroundColor: '#EAE8EE',
+        overflow: 'hidden',
+        position: 'relative',
+    },
+
+    locationButton: {
+        position: 'absolute',
+        right: 20,
+        bottom: 25,
+        backgroundColor: '#FFFFFF',
+        width: 48,
+        height: 48,
+        borderRadius: 14,
         alignItems: 'center',
-    },
-    mapIcon: {
-        fontSize: 35,
-    },
-    mapText: {
-        color: '#7040A5',
-        fontWeight: 'bold',
-        fontSize: 17,
-        marginTop: 10,
-    },
-    mapSubtext: {
-        color: '#777',
-        fontSize: 12,
-        marginTop: 6,
+        justifyContent: 'center',
+        elevation: 4,
     },
 });
