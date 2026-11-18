@@ -1,13 +1,44 @@
 
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  ActivityIndicator,
+  Image,
+} from 'react-native';
 
-export default function SplashScreen() {
+export default function Index() {
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>BMap</Text>
-      <Text style={styles.subtitle}>
-        Acessibilidade em todos os caminhos.
-      </Text>
+      <StatusBar
+        backgroundColor="#FFFFFF"
+        barStyle="dark-content"
+      />
+
+      <View style={styles.content}>
+        <Image
+          source={require('../../assets/images/logo-bmap.jpg')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+
+        <Text style={styles.title}>
+          Be My Map
+        </Text>
+
+        <Text style={styles.subtitle}>
+          Seja meu guia.
+        </Text>
+      </View>
+
+      <View style={styles.loading}>
+        <ActivityIndicator
+          size="large"
+          color="#7040A5"
+        />
+      </View>
     </View>
   );
 }
@@ -15,18 +46,38 @@ export default function SplashScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#7040A5',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logo: {
-    color: '#FFFFFF',
-    fontSize: 48,
-    fontWeight: 'bold',
+
+  content: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+
+  logo: {
+    width: 260,
+    height: 200,
+    marginBottom: 15,
+  },
+
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#7040A5',
+    marginTop: 10,
+  },
+
   subtitle: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    marginTop: 12,
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#2872D8',
+    marginTop: 8,
+  },
+
+  loading: {
+    position: 'absolute',
+    bottom: 95,
   },
 });

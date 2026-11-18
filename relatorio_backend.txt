@@ -1,0 +1,2523 @@
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\BmapApplication.java ==========
+
+package br.com.bmap;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BmapApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BmapApplication.class, args);
+	}
+
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\EspecialidadeBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.EspecialidadeDAO;
+import br.com.bmap.model.Especialidade;
+
+@Service
+public class EspecialidadeBO {
+
+    private final EspecialidadeDAO especialidadeDAO;
+
+    public EspecialidadeBO(EspecialidadeDAO especialidadeDAO) {
+        this.especialidadeDAO = especialidadeDAO;
+    }
+
+    public List<Especialidade> listarTodos() {
+        return especialidadeDAO.findAll();
+    }
+
+    public Especialidade buscarPorId(Long id) {
+        return especialidadeDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("Especialidade nÃ£o encontrada"));
+    }
+
+    public Especialidade salvar(Especialidade especialidade) {
+        return especialidadeDAO.save(especialidade);
+    }
+
+    public void excluir(Long id) {
+        Especialidade especialidade = buscarPorId(id);
+        especialidadeDAO.delete(especialidade);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\FavoritoBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.FavoritoDAO;
+import br.com.bmap.model.Favorito;
+
+@Service
+public class FavoritoBO {
+
+    private final FavoritoDAO favoritoDAO;
+
+    public FavoritoBO(FavoritoDAO favoritoDAO) {
+        this.favoritoDAO = favoritoDAO;
+    }
+
+    public List<Favorito> listarTodos() {
+        return favoritoDAO.findAll();
+    }
+
+    public Favorito buscarPorId(Long id) {
+        return favoritoDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("Favorito nÃ£o encontrado"));
+    }
+
+    public Favorito salvar(Favorito favorito) {
+        return favoritoDAO.save(favorito);
+    }
+
+    public void excluir(Long id) {
+        Favorito favorito = buscarPorId(id);
+        favoritoDAO.delete(favorito);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\LocalBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.LocalDAO;
+import br.com.bmap.model.Local;
+
+@Service
+public class LocalBO {
+
+    private final LocalDAO localDAO;
+
+    public LocalBO(LocalDAO localDAO) {
+        this.localDAO = localDAO;
+    }
+
+    public List<Local> listarTodos() {
+        return localDAO.findAll();
+    }
+
+    public Local buscarPorId(Long id) {
+        return localDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("Local nÃ£o encontrado"));
+    }
+
+    public Local salvar(Local local) {
+        return localDAO.save(local);
+    }
+
+    public void excluir(Long id) {
+        Local local = buscarPorId(id);
+        localDAO.delete(local);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\LocalRecursoBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.LocalRecursoDAO;
+import br.com.bmap.model.LocalRecurso;
+
+@Service
+public class LocalRecursoBO {
+
+    private final LocalRecursoDAO localRecursoDAO;
+
+    public LocalRecursoBO(LocalRecursoDAO localRecursoDAO) {
+        this.localRecursoDAO = localRecursoDAO;
+    }
+
+    public List<LocalRecurso> listarTodos() {
+        return localRecursoDAO.findAll();
+    }
+
+    public LocalRecurso buscarPorId(Long id) {
+        return localRecursoDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("Recurso do local nÃ£o encontrado"));
+    }
+
+    public LocalRecurso salvar(LocalRecurso localRecurso) {
+        return localRecursoDAO.save(localRecurso);
+    }
+
+    public void excluir(Long id) {
+        LocalRecurso localRecurso = buscarPorId(id);
+        localRecursoDAO.delete(localRecurso);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\PreferenciaAcessibilidadeBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.PreferenciaAcessibilidadeDAO;
+import br.com.bmap.model.PreferenciaAcessibilidade;
+
+@Service
+public class PreferenciaAcessibilidadeBO {
+
+    private final PreferenciaAcessibilidadeDAO preferenciaDAO;
+
+    public PreferenciaAcessibilidadeBO(PreferenciaAcessibilidadeDAO preferenciaDAO) {
+        this.preferenciaDAO = preferenciaDAO;
+    }
+
+    public List<PreferenciaAcessibilidade> listarTodos() {
+        return preferenciaDAO.findAll();
+    }
+
+    public PreferenciaAcessibilidade buscarPorId(Long id) {
+        return preferenciaDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("PreferÃªncia nÃ£o encontrada"));
+    }
+
+    public PreferenciaAcessibilidade salvar(PreferenciaAcessibilidade preferencia) {
+        return preferenciaDAO.save(preferencia);
+    }
+
+    public void excluir(Long id) {
+        PreferenciaAcessibilidade preferencia = buscarPorId(id);
+        preferenciaDAO.delete(preferencia);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\RelatoAcessibilidadeBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.RelatoAcessibilidadeDAO;
+import br.com.bmap.model.RelatoAcessibilidade;
+
+@Service
+public class RelatoAcessibilidadeBO {
+
+    private final RelatoAcessibilidadeDAO relatoDAO;
+
+    public RelatoAcessibilidadeBO(RelatoAcessibilidadeDAO relatoDAO) {
+        this.relatoDAO = relatoDAO;
+    }
+
+    public List<RelatoAcessibilidade> listarTodos() {
+        return relatoDAO.findAll();
+    }
+
+    public RelatoAcessibilidade buscarPorId(Long id) {
+        return relatoDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("Relato nÃ£o encontrado"));
+    }
+
+    public RelatoAcessibilidade salvar(RelatoAcessibilidade relato) {
+        return relatoDAO.save(relato);
+    }
+
+    public void excluir(Long id) {
+        RelatoAcessibilidade relato = buscarPorId(id);
+        relatoDAO.delete(relato);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\ServicoEspecialidadeBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.ServicoEspecialidadeDAO;
+import br.com.bmap.model.ServicoEspecialidade;
+import br.com.bmap.model.ServicoEspecialidadeId;
+
+@Service
+public class ServicoEspecialidadeBO {
+
+    private final ServicoEspecialidadeDAO servicoEspecialidadeDAO;
+
+    public ServicoEspecialidadeBO(ServicoEspecialidadeDAO servicoEspecialidadeDAO) {
+        this.servicoEspecialidadeDAO = servicoEspecialidadeDAO;
+    }
+
+    public List<ServicoEspecialidade> listarTodos() {
+        return servicoEspecialidadeDAO.findAll();
+    }
+
+    public ServicoEspecialidade buscarPorId(ServicoEspecialidadeId id) {
+        return servicoEspecialidadeDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("RelaÃ§Ã£o nÃ£o encontrada"));
+    }
+
+    public ServicoEspecialidade salvar(ServicoEspecialidade servicoEspecialidade) {
+        return servicoEspecialidadeDAO.save(servicoEspecialidade);
+    }
+
+    public void excluir(ServicoEspecialidadeId id) {
+        ServicoEspecialidade servicoEspecialidade = buscarPorId(id);
+        servicoEspecialidadeDAO.delete(servicoEspecialidade);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\ServicoSaudeBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.ServicoSaudeDAO;
+import br.com.bmap.model.ServicoSaude;
+
+@Service
+public class ServicoSaudeBO {
+
+    private final ServicoSaudeDAO servicoDAO;
+
+    public ServicoSaudeBO(ServicoSaudeDAO servicoDAO) {
+        this.servicoDAO = servicoDAO;
+    }
+
+    public List<ServicoSaude> listarTodos() {
+        return servicoDAO.findAll();
+    }
+
+    public ServicoSaude buscarPorId(Long id) {
+        return servicoDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("ServiÃ§o de saÃºde nÃ£o encontrado"));
+    }
+
+    public ServicoSaude salvar(ServicoSaude servico) {
+        return servicoDAO.save(servico);
+    }
+
+    public void excluir(Long id) {
+        ServicoSaude servico = buscarPorId(id);
+        servicoDAO.delete(servico);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\TipoRecursoBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.TipoRecursoDAO;
+import br.com.bmap.model.TipoRecurso;
+
+@Service
+public class TipoRecursoBO {
+
+    private final TipoRecursoDAO tipoRecursoDAO;
+
+    public TipoRecursoBO(TipoRecursoDAO tipoRecursoDAO) {
+        this.tipoRecursoDAO = tipoRecursoDAO;
+    }
+
+    public List<TipoRecurso> listarTodos() {
+        return tipoRecursoDAO.findAll();
+    }
+
+    public TipoRecurso buscarPorId(Long id) {
+        return tipoRecursoDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tipo de recurso nÃ£o encontrado"));
+    }
+
+    public TipoRecurso salvar(TipoRecurso tipoRecurso) {
+        return tipoRecursoDAO.save(tipoRecurso);
+    }
+
+    public void excluir(Long id) {
+        TipoRecurso tipoRecurso = buscarPorId(id);
+        tipoRecursoDAO.delete(tipoRecurso);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\UsuarioBO.java ==========
+
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.UsuarioDAO;
+import br.com.bmap.model.Usuario;
+
+@Service
+public class UsuarioBO {
+
+    private final UsuarioDAO usuarioDAO;
+    private final PasswordEncoder passwordEncoder;
+
+    public UsuarioBO(UsuarioDAO usuarioDAO, PasswordEncoder passwordEncoder) {
+        this.usuarioDAO = usuarioDAO;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public List<Usuario> listarTodos() {
+        return usuarioDAO.findAll();
+    }
+
+    public Usuario buscarPorId(Long id) {
+        return usuarioDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
+    }
+
+    public Usuario salvar(Usuario usuario) {
+        if (usuario.getSenhaHash() == null || usuario.getSenhaHash().isBlank()) {
+            throw new IllegalArgumentException("A senha e obrigatoria");
+        }
+
+        usuario.setSenhaHash(passwordEncoder.encode(usuario.getSenhaHash()));
+
+        return usuarioDAO.save(usuario);
+    }
+
+    public void excluir(Long id) {
+        Usuario usuario = buscarPorId(id);
+        usuarioDAO.delete(usuario);
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\bo\ValidacaoBO.java ==========
+
+package br.com.bmap.bo;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import br.com.bmap.dao.ValidacaoDAO;
+import br.com.bmap.model.Validacao;
+
+@Service
+public class ValidacaoBO {
+
+    private final ValidacaoDAO validacaoDAO;
+
+    public ValidacaoBO(ValidacaoDAO validacaoDAO) {
+        this.validacaoDAO = validacaoDAO;
+    }
+
+    public List<Validacao> listarTodos() {
+        return validacaoDAO.findAll();
+    }
+
+    public Validacao buscarPorId(Long id) {
+        return validacaoDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("ValidaÃ§Ã£o nÃ£o encontrada"));
+    }
+
+    public Validacao salvar(Validacao validacao) {
+        return validacaoDAO.save(validacao);
+    }
+
+    public void excluir(Long id) {
+        Validacao validacao = buscarPorId(id);
+        validacaoDAO.delete(validacao);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\EspecialidadeController.java ==========
+
+package br.com.bmap.controller;
+
+import java.util.List;
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.EspecialidadeBO;
+import br.com.bmap.dto.EspecialidadeDTO;
+import br.com.bmap.mapper.EspecialidadeMapper;
+import br.com.bmap.model.Especialidade;
+
+@RestController
+@RequestMapping("/especialidades")
+@CrossOrigin(origins = "*")
+public class EspecialidadeController {
+
+    private final EspecialidadeBO service;
+
+    public EspecialidadeController(EspecialidadeBO service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<EspecialidadeDTO> listarTodos() {
+        return service.listarTodos().stream()
+                .map(EspecialidadeMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}")
+    public EspecialidadeDTO buscarPorId(@PathVariable Long id) {
+        return EspecialidadeMapper.toDTO(service.buscarPorId(id));
+    }
+
+    @PostMapping
+    public EspecialidadeDTO cadastrar(@RequestBody Especialidade entidade) {
+        return EspecialidadeMapper.toDTO(service.salvar(entidade));
+    }
+
+    @PutMapping("/{id}")
+    public EspecialidadeDTO atualizar(@PathVariable Long id, @RequestBody Especialidade entidade) {
+        entidade.setIdEspecialidade(id);
+        return EspecialidadeMapper.toDTO(service.salvar(entidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        service.excluir(id);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\FavoritoController.java ==========
+
+package br.com.bmap.controller;
+
+import java.util.List;
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.FavoritoBO;
+import br.com.bmap.dto.FavoritoDTO;
+import br.com.bmap.mapper.FavoritoMapper;
+import br.com.bmap.model.Favorito;
+
+@RestController
+@RequestMapping("/favoritos")
+@CrossOrigin(origins = "*")
+public class FavoritoController {
+
+    private final FavoritoBO service;
+
+    public FavoritoController(FavoritoBO service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<FavoritoDTO> listarTodos() {
+        return service.listarTodos().stream()
+                .map(FavoritoMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}")
+    public FavoritoDTO buscarPorId(@PathVariable Long id) {
+        return FavoritoMapper.toDTO(service.buscarPorId(id));
+    }
+
+    @PostMapping
+    public FavoritoDTO cadastrar(@RequestBody Favorito entidade) {
+        return FavoritoMapper.toDTO(service.salvar(entidade));
+    }
+
+    @PutMapping("/{id}")
+    public FavoritoDTO atualizar(@PathVariable Long id, @RequestBody Favorito entidade) {
+        entidade.setIdFavorito(id);
+        return FavoritoMapper.toDTO(service.salvar(entidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        service.excluir(id);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\LocalController.java ==========
+
+
+package br.com.bmap.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.LocalBO;
+import br.com.bmap.dto.LocalDTO;
+import br.com.bmap.mapper.LocalMapper;
+import br.com.bmap.model.Local;
+
+@RestController
+@RequestMapping("/locais")
+@CrossOrigin(origins = "*")
+public class LocalController {
+
+    private final LocalBO localBO;
+
+    public LocalController(LocalBO localBO) {
+        this.localBO = localBO;
+    }
+
+    @GetMapping
+    public List<LocalDTO> listarTodos() {
+        return localBO.listarTodos()
+                .stream()
+                .map(LocalMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}")
+    public LocalDTO buscarPorId(@PathVariable Long id) {
+        return LocalMapper.toDTO(localBO.buscarPorId(id));
+    }
+
+    @PostMapping
+    public LocalDTO cadastrar(@RequestBody Local entidade) {
+        return LocalMapper.toDTO(localBO.salvar(entidade));
+    }
+
+    @PutMapping("/{id}")
+    public LocalDTO atualizar(
+            @PathVariable Long id,
+            @RequestBody Local entidade) {
+
+        entidade.setIdLocal(id);
+        return LocalMapper.toDTO(localBO.salvar(entidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        localBO.excluir(id);
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\LocalRecursoController.java ==========
+
+
+package br.com.bmap.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.LocalRecursoBO;
+import br.com.bmap.dto.LocalRecursoDTO;
+import br.com.bmap.mapper.LocalRecursoMapper;
+import br.com.bmap.model.LocalRecurso;
+
+@RestController
+@RequestMapping("/local-recursos")
+@CrossOrigin(origins = "*")
+public class LocalRecursoController {
+
+    private final LocalRecursoBO localRecursoBO;
+
+    public LocalRecursoController(LocalRecursoBO localRecursoBO) {
+        this.localRecursoBO = localRecursoBO;
+    }
+
+    @GetMapping
+    public List<LocalRecursoDTO> listarTodos() {
+        return localRecursoBO.listarTodos()
+                .stream()
+                .map(LocalRecursoMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}")
+    public LocalRecursoDTO buscarPorId(@PathVariable Long id) {
+        return LocalRecursoMapper.toDTO(localRecursoBO.buscarPorId(id));
+    }
+
+    @PostMapping
+    public LocalRecursoDTO cadastrar(@RequestBody LocalRecurso entidade) {
+        return LocalRecursoMapper.toDTO(localRecursoBO.salvar(entidade));
+    }
+
+    @PutMapping("/{id}")
+    public LocalRecursoDTO atualizar(
+            @PathVariable Long id,
+            @RequestBody LocalRecurso entidade) {
+
+        entidade.setIdLocalRecurso(id);
+        return LocalRecursoMapper.toDTO(localRecursoBO.salvar(entidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        localRecursoBO.excluir(id);
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\PreferenciaAcessibilidadeController.java ==========
+
+package br.com.bmap.controller;
+
+import java.util.List;
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.PreferenciaAcessibilidadeBO;
+import br.com.bmap.dto.PreferenciaAcessibilidadeDTO;
+import br.com.bmap.mapper.PreferenciaAcessibilidadeMapper;
+import br.com.bmap.model.PreferenciaAcessibilidade;
+
+@RestController
+@RequestMapping("/preferencias-acessibilidade")
+@CrossOrigin(origins = "*")
+public class PreferenciaAcessibilidadeController {
+
+    private final PreferenciaAcessibilidadeBO service;
+
+    public PreferenciaAcessibilidadeController(PreferenciaAcessibilidadeBO service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<PreferenciaAcessibilidadeDTO> listarTodos() {
+        return service.listarTodos().stream()
+                .map(PreferenciaAcessibilidadeMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}")
+    public PreferenciaAcessibilidadeDTO buscarPorId(@PathVariable Long id) {
+        return PreferenciaAcessibilidadeMapper.toDTO(service.buscarPorId(id));
+    }
+
+    @PostMapping
+    public PreferenciaAcessibilidadeDTO cadastrar(@RequestBody PreferenciaAcessibilidade entidade) {
+        return PreferenciaAcessibilidadeMapper.toDTO(service.salvar(entidade));
+    }
+
+    @PutMapping("/{id}")
+    public PreferenciaAcessibilidadeDTO atualizar(@PathVariable Long id, @RequestBody PreferenciaAcessibilidade entidade) {
+        entidade.setIdPreferencia(id);
+        return PreferenciaAcessibilidadeMapper.toDTO(service.salvar(entidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        service.excluir(id);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\RelatoAcessibilidadeController.java ==========
+
+package br.com.bmap.controller;
+
+import java.util.List;
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.RelatoAcessibilidadeBO;
+import br.com.bmap.dto.RelatoAcessibilidadeDTO;
+import br.com.bmap.mapper.RelatoAcessibilidadeMapper;
+import br.com.bmap.model.RelatoAcessibilidade;
+
+@RestController
+@RequestMapping("/relatos-acessibilidade")
+@CrossOrigin(origins = "*")
+public class RelatoAcessibilidadeController {
+
+    private final RelatoAcessibilidadeBO service;
+
+    public RelatoAcessibilidadeController(RelatoAcessibilidadeBO service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<RelatoAcessibilidadeDTO> listarTodos() {
+        return service.listarTodos().stream()
+                .map(RelatoAcessibilidadeMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}")
+    public RelatoAcessibilidadeDTO buscarPorId(@PathVariable Long id) {
+        return RelatoAcessibilidadeMapper.toDTO(service.buscarPorId(id));
+    }
+
+    @PostMapping
+    public RelatoAcessibilidadeDTO cadastrar(@RequestBody RelatoAcessibilidade entidade) {
+        return RelatoAcessibilidadeMapper.toDTO(service.salvar(entidade));
+    }
+
+    @PutMapping("/{id}")
+    public RelatoAcessibilidadeDTO atualizar(@PathVariable Long id, @RequestBody RelatoAcessibilidade entidade) {
+        entidade.setIdRelato(id);
+        return RelatoAcessibilidadeMapper.toDTO(service.salvar(entidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        service.excluir(id);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\ServicoEspecialidadeController.java ==========
+
+
+package br.com.bmap.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.ServicoEspecialidadeBO;
+import br.com.bmap.dto.ServicoEspecialidadeDTO;
+import br.com.bmap.mapper.ServicoEspecialidadeMapper;
+import br.com.bmap.model.ServicoEspecialidade;
+import br.com.bmap.model.ServicoEspecialidadeId;
+
+@RestController
+@RequestMapping("/servico-especialidades")
+@CrossOrigin(origins = "*")
+public class ServicoEspecialidadeController {
+
+    private final ServicoEspecialidadeBO bo;
+
+    public ServicoEspecialidadeController(ServicoEspecialidadeBO bo) {
+        this.bo = bo;
+    }
+
+    @GetMapping
+    public List<ServicoEspecialidadeDTO> listarTodos() {
+        return bo.listarTodos()
+                .stream()
+                .map(ServicoEspecialidadeMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{idServico}/{idEspecialidade}")
+    public ServicoEspecialidadeDTO buscarPorId(
+            @PathVariable Long idServico,
+            @PathVariable Long idEspecialidade) {
+
+        ServicoEspecialidadeId id =
+                new ServicoEspecialidadeId(idServico, idEspecialidade);
+
+        return ServicoEspecialidadeMapper.toDTO(bo.buscarPorId(id));
+    }
+
+    @PostMapping
+    public ServicoEspecialidadeDTO cadastrar(
+            @RequestBody ServicoEspecialidade entidade) {
+
+        return ServicoEspecialidadeMapper.toDTO(bo.salvar(entidade));
+    }
+
+    @DeleteMapping("/{idServico}/{idEspecialidade}")
+    public void excluir(
+            @PathVariable Long idServico,
+            @PathVariable Long idEspecialidade) {
+
+        bo.excluir(new ServicoEspecialidadeId(idServico, idEspecialidade));
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\ServicoSaudeController.java ==========
+
+package br.com.bmap.controller;
+
+import java.util.List;
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.ServicoSaudeBO;
+import br.com.bmap.dto.ServicoSaudeDTO;
+import br.com.bmap.mapper.ServicoSaudeMapper;
+import br.com.bmap.model.ServicoSaude;
+
+@RestController
+@RequestMapping("/servicos-saude")
+@CrossOrigin(origins = "*")
+public class ServicoSaudeController {
+
+    private final ServicoSaudeBO service;
+
+    public ServicoSaudeController(ServicoSaudeBO service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<ServicoSaudeDTO> listarTodos() {
+        return service.listarTodos().stream()
+                .map(ServicoSaudeMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}")
+    public ServicoSaudeDTO buscarPorId(@PathVariable Long id) {
+        return ServicoSaudeMapper.toDTO(service.buscarPorId(id));
+    }
+
+    @PostMapping
+    public ServicoSaudeDTO cadastrar(@RequestBody ServicoSaude entidade) {
+        return ServicoSaudeMapper.toDTO(service.salvar(entidade));
+    }
+
+    @PutMapping("/{id}")
+    public ServicoSaudeDTO atualizar(@PathVariable Long id, @RequestBody ServicoSaude entidade) {
+        entidade.setIdServico(id);
+        return ServicoSaudeMapper.toDTO(service.salvar(entidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        service.excluir(id);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\TipoRecursoController.java ==========
+
+
+package br.com.bmap.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.TipoRecursoBO;
+import br.com.bmap.dto.TipoRecursoDTO;
+import br.com.bmap.mapper.TipoRecursoMapper;
+import br.com.bmap.model.TipoRecurso;
+
+@RestController
+@RequestMapping("/tipos-recursos")
+@CrossOrigin(origins = "*")
+public class TipoRecursoController {
+
+    private final TipoRecursoBO tipoRecursoBO;
+
+    public TipoRecursoController(TipoRecursoBO tipoRecursoBO) {
+        this.tipoRecursoBO = tipoRecursoBO;
+    }
+
+    @GetMapping
+    public List<TipoRecursoDTO> listarTodos() {
+        return tipoRecursoBO.listarTodos()
+                .stream()
+                .map(TipoRecursoMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}")
+    public TipoRecursoDTO buscarPorId(@PathVariable Long id) {
+        return TipoRecursoMapper.toDTO(tipoRecursoBO.buscarPorId(id));
+    }
+
+    @PostMapping
+    public TipoRecursoDTO cadastrar(@RequestBody TipoRecurso entidade) {
+        return TipoRecursoMapper.toDTO(tipoRecursoBO.salvar(entidade));
+    }
+
+    @PutMapping("/{id}")
+    public TipoRecursoDTO atualizar(
+            @PathVariable Long id,
+            @RequestBody TipoRecurso entidade) {
+
+        entidade.setIdRecurso(id);
+        return TipoRecursoMapper.toDTO(tipoRecursoBO.salvar(entidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        tipoRecursoBO.excluir(id);
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\UsuarioController.java ==========
+
+
+package br.com.bmap.controller;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.UsuarioBO;
+import br.com.bmap.dto.UsuarioDTO;
+import br.com.bmap.dto.UsuarioRequestDTO;
+import br.com.bmap.mapper.UsuarioMapper;
+import br.com.bmap.model.Usuario;
+
+@RestController
+@RequestMapping("/usuarios")
+@CrossOrigin(origins = "*")
+public class UsuarioController {
+
+    private final UsuarioBO usuarioBO;
+
+    public UsuarioController(UsuarioBO usuarioBO) {
+        this.usuarioBO = usuarioBO;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UsuarioDTO>> listarTodos() {
+        List<UsuarioDTO> usuarios = usuarioBO.listarTodos()
+                .stream()
+                .map(UsuarioMapper::toDTO)
+                .toList();
+
+        return ResponseEntity.ok(usuarios);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> buscarPorId(@PathVariable Long id) {
+        Usuario usuario = usuarioBO.buscarPorId(id);
+
+        return ResponseEntity.ok(UsuarioMapper.toDTO(usuario));
+    }
+
+    @PostMapping
+    public ResponseEntity<UsuarioDTO> cadastrar(
+            @RequestBody UsuarioRequestDTO request) {
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNome(request.nome());
+        usuario.setEmail(request.email());
+        usuario.setSenhaHash(request.senha());
+        usuario.setStatus(request.status());
+
+        Usuario salvo = usuarioBO.salvar(usuario);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(UsuarioMapper.toDTO(salvo));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> atualizar(
+            @PathVariable Long id,
+            @RequestBody UsuarioRequestDTO request) {
+
+        Usuario usuario = usuarioBO.buscarPorId(id);
+
+        usuario.setNome(request.nome());
+        usuario.setEmail(request.email());
+        usuario.setSenhaHash(request.senha());
+        usuario.setStatus(request.status());
+
+        Usuario atualizado = usuarioBO.salvar(usuario);
+
+        return ResponseEntity.ok(UsuarioMapper.toDTO(atualizado));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        usuarioBO.excluir(id);
+
+        return ResponseEntity.noContent().build();
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\controller\ValidacaoController.java ==========
+
+package br.com.bmap.controller;
+
+import java.util.List;
+import org.springframework.web.bind.annotation.*;
+
+import br.com.bmap.bo.ValidacaoBO;
+import br.com.bmap.dto.ValidacaoDTO;
+import br.com.bmap.mapper.ValidacaoMapper;
+import br.com.bmap.model.Validacao;
+
+@RestController
+@RequestMapping("/validacoes")
+@CrossOrigin(origins = "*")
+public class ValidacaoController {
+
+    private final ValidacaoBO service;
+
+    public ValidacaoController(ValidacaoBO service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<ValidacaoDTO> listarTodos() {
+        return service.listarTodos().stream()
+                .map(ValidacaoMapper::toDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}")
+    public ValidacaoDTO buscarPorId(@PathVariable Long id) {
+        return ValidacaoMapper.toDTO(service.buscarPorId(id));
+    }
+
+    @PostMapping
+    public ValidacaoDTO cadastrar(@RequestBody Validacao entidade) {
+        return ValidacaoMapper.toDTO(service.salvar(entidade));
+    }
+
+    @PutMapping("/{id}")
+    public ValidacaoDTO atualizar(@PathVariable Long id, @RequestBody Validacao entidade) {
+        entidade.setIdValidacao(id);
+        return ValidacaoMapper.toDTO(service.salvar(entidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        service.excluir(id);
+    }
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\EspecialidadeDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.Especialidade;
+
+public interface EspecialidadeDAO extends JpaRepository<Especialidade, Long> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\FavoritoDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.Favorito;
+
+public interface FavoritoDAO extends JpaRepository<Favorito, Long> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\LocalDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.Local;
+
+public interface LocalDAO extends JpaRepository<Local, Long> {
+
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\LocalRecursoDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.LocalRecurso;
+
+public interface LocalRecursoDAO extends JpaRepository<LocalRecurso, Long> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\PreferenciaAcessibilidadeDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.PreferenciaAcessibilidade;
+
+public interface PreferenciaAcessibilidadeDAO
+        extends JpaRepository<PreferenciaAcessibilidade, Long> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\RelatoAcessibilidadeDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.RelatoAcessibilidade;
+
+public interface RelatoAcessibilidadeDAO
+        extends JpaRepository<RelatoAcessibilidade, Long> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\ServicoEspecialidadeDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.ServicoEspecialidade;
+import br.com.bmap.model.ServicoEspecialidadeId;
+
+public interface ServicoEspecialidadeDAO
+        extends JpaRepository<ServicoEspecialidade, ServicoEspecialidadeId> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\ServicoSaudeDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.ServicoSaude;
+
+public interface ServicoSaudeDAO extends JpaRepository<ServicoSaude, Long> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\TipoRecursoDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.TipoRecurso;
+
+public interface TipoRecursoDAO extends JpaRepository<TipoRecurso, Long> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\UsuarioDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.Usuario;
+
+public interface UsuarioDAO extends JpaRepository<Usuario, Long> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dao\ValidacaoDAO.java ==========
+
+package br.com.bmap.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.bmap.model.Validacao;
+
+public interface ValidacaoDAO extends JpaRepository<Validacao, Long> {
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\EspecialidadeDTO.java ==========
+
+package br.com.bmap.dto;
+
+public record EspecialidadeDTO(
+    Long idEspecialidade,
+    String nome,
+    String descricao
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\FavoritoDTO.java ==========
+
+package br.com.bmap.dto;
+
+import java.time.LocalDateTime;
+
+public record FavoritoDTO(
+    Long idFavorito,
+    Long idUsuario,
+    Long idLocal,
+    LocalDateTime dataAdicao
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\LocalDTO.java ==========
+
+package br.com.bmap.dto;
+
+import java.math.BigDecimal;
+
+public record LocalDTO(
+    Long idLocal,
+    String nome,
+    String categoria,
+    String endereco,
+    BigDecimal latitude,
+    BigDecimal longitude,
+    String descricao
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\LocalRecursoDTO.java ==========
+
+package br.com.bmap.dto;
+
+public record LocalRecursoDTO(
+    Long idLocalRecurso,
+    Long idLocal,
+    Long idRecurso,
+    String disponivel,
+    String observacao
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\PreferenciaAcessibilidadeDTO.java ==========
+
+package br.com.bmap.dto;
+
+public record PreferenciaAcessibilidadeDTO(
+    Long idPreferencia,
+    Long idUsuario,
+    String tipoDeficiencia,
+    String necessidade,
+    String descricao
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\RelatoAcessibilidadeDTO.java ==========
+
+package br.com.bmap.dto;
+
+import java.time.LocalDateTime;
+
+public record RelatoAcessibilidadeDTO(
+    Long idRelato,
+    Long idUsuario,
+    Long idLocal,
+    String descricao,
+    LocalDateTime dataRelato,
+    String status
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\ServicoEspecialidadeDTO.java ==========
+
+package br.com.bmap.dto;
+
+public record ServicoEspecialidadeDTO(
+    Long idServico,
+    Long idEspecialidade
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\ServicoSaudeDTO.java ==========
+
+package br.com.bmap.dto;
+
+public record ServicoSaudeDTO(
+    Long idServico,
+    Long idLocal,
+    String nome,
+    String telefone,
+    String descricao
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\TipoRecursoDTO.java ==========
+
+package br.com.bmap.dto;
+
+public record TipoRecursoDTO(
+    Long idRecurso,
+    String nome,
+    String descricao
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\UsuarioDTO.java ==========
+
+package br.com.bmap.dto;
+
+public record UsuarioDTO(
+    Long idUsuario,
+    String nome,
+    String email,
+    String status
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\UsuarioRequestDTO.java ==========
+
+package br.com.bmap.dto;
+
+public record UsuarioRequestDTO(
+    String nome,
+    String email,
+    String senha,
+    String status
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\dto\ValidacaoDTO.java ==========
+
+package br.com.bmap.dto;
+
+import java.time.LocalDateTime;
+
+public record ValidacaoDTO(
+    Long idValidacao,
+    Long idRelato,
+    Long idUsuario,
+    String tipoValidacao,
+    LocalDateTime dataValidacao
+) {}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\EspecialidadeMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.EspecialidadeDTO;
+import br.com.bmap.model.Especialidade;
+
+public class EspecialidadeMapper {
+    public static EspecialidadeDTO toDTO(Especialidade e) {
+        return new EspecialidadeDTO(e.getIdEspecialidade(), e.getNome(), e.getDescricao());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\FavoritoMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.FavoritoDTO;
+import br.com.bmap.model.Favorito;
+
+public class FavoritoMapper {
+    public static FavoritoDTO toDTO(Favorito f) {
+        return new FavoritoDTO(f.getIdFavorito(),
+            f.getUsuario().getIdUsuario(), f.getLocal().getIdLocal(),
+            f.getDataAdicao());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\LocalMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.LocalDTO;
+import br.com.bmap.model.Local;
+
+public class LocalMapper {
+    public static LocalDTO toDTO(Local l) {
+        return new LocalDTO(l.getIdLocal(), l.getNome(), l.getCategoria(),
+            l.getEndereco(), l.getLatitude(), l.getLongitude(), l.getDescricao());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\LocalRecursoMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.LocalRecursoDTO;
+import br.com.bmap.model.LocalRecurso;
+
+public class LocalRecursoMapper {
+    public static LocalRecursoDTO toDTO(LocalRecurso l) {
+        return new LocalRecursoDTO(l.getIdLocalRecurso(),
+            l.getLocal().getIdLocal(), l.getTipoRecurso().getIdRecurso(),
+            l.getDisponivel(), l.getObservacao());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\PreferenciaAcessibilidadeMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.PreferenciaAcessibilidadeDTO;
+import br.com.bmap.model.PreferenciaAcessibilidade;
+
+public class PreferenciaAcessibilidadeMapper {
+    public static PreferenciaAcessibilidadeDTO toDTO(PreferenciaAcessibilidade p) {
+        return new PreferenciaAcessibilidadeDTO(p.getIdPreferencia(),
+            p.getUsuario().getIdUsuario(), p.getTipoDeficiencia(),
+            p.getNecessidade(), p.getDescricao());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\RelatoAcessibilidadeMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.RelatoAcessibilidadeDTO;
+import br.com.bmap.model.RelatoAcessibilidade;
+
+public class RelatoAcessibilidadeMapper {
+    public static RelatoAcessibilidadeDTO toDTO(RelatoAcessibilidade r) {
+        return new RelatoAcessibilidadeDTO(r.getIdRelato(),
+            r.getUsuario().getIdUsuario(), r.getLocal().getIdLocal(),
+            r.getDescricao(), r.getDataRelato(), r.getStatus());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\ServicoEspecialidadeMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.ServicoEspecialidadeDTO;
+import br.com.bmap.model.ServicoEspecialidade;
+
+public class ServicoEspecialidadeMapper {
+    public static ServicoEspecialidadeDTO toDTO(ServicoEspecialidade s) {
+        return new ServicoEspecialidadeDTO(
+            s.getServico().getIdServico(),
+            s.getEspecialidade().getIdEspecialidade());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\ServicoSaudeMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.ServicoSaudeDTO;
+import br.com.bmap.model.ServicoSaude;
+
+public class ServicoSaudeMapper {
+    public static ServicoSaudeDTO toDTO(ServicoSaude s) {
+        return new ServicoSaudeDTO(s.getIdServico(), s.getLocal().getIdLocal(),
+            s.getNome(), s.getTelefone(), s.getDescricao());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\TipoRecursoMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.TipoRecursoDTO;
+import br.com.bmap.model.TipoRecurso;
+
+public class TipoRecursoMapper {
+    public static TipoRecursoDTO toDTO(TipoRecurso t) {
+        return new TipoRecursoDTO(t.getIdRecurso(), t.getNome(), t.getDescricao());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\UsuarioMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.UsuarioDTO;
+import br.com.bmap.model.Usuario;
+
+public class UsuarioMapper {
+    public static UsuarioDTO toDTO(Usuario u) {
+        return new UsuarioDTO(u.getIdUsuario(), u.getNome(), u.getEmail(), u.getStatus());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\mapper\ValidacaoMapper.java ==========
+
+package br.com.bmap.mapper;
+
+import br.com.bmap.dto.ValidacaoDTO;
+import br.com.bmap.model.Validacao;
+
+public class ValidacaoMapper {
+    public static ValidacaoDTO toDTO(Validacao v) {
+        return new ValidacaoDTO(v.getIdValidacao(),
+            v.getRelato().getIdRelato(), v.getUsuario().getIdUsuario(),
+            v.getTipoValidacao(), v.getDataValidacao());
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\Especialidade.java ==========
+
+
+package br.com.bmap.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "ESPECIALIDADES")
+public class Especialidade {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_ESPECIALIDADE")
+    private Long idEspecialidade;
+
+    @Column(name = "NOME", nullable = false, unique = true, length = 120)
+    private String nome;
+
+    @Column(name = "DESCRICAO", length = 500)
+    private String descricao;
+
+    public Long getIdEspecialidade() {
+        return idEspecialidade;
+    }
+
+    public void setIdEspecialidade(Long idEspecialidade) {
+        this.idEspecialidade = idEspecialidade;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+}
+
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\Favorito.java ==========
+
+
+package br.com.bmap.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+
+@Entity
+@Table(
+    name = "FAVORITOS",
+    uniqueConstraints = @UniqueConstraint(
+        columnNames = {"ID_USUARIO", "ID_LOCAL"}
+    )
+)
+public class Favorito {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_FAVORITO")
+    private Long idFavorito;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO", nullable = false)
+    private Usuario usuario;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_LOCAL", nullable = false)
+    private Local local;
+
+    @Column(name = "DATA_ADICAO")
+    private LocalDateTime dataAdicao;
+
+    public Long getIdFavorito() {
+        return idFavorito;
+    }
+
+    public void setIdFavorito(Long idFavorito) {
+        this.idFavorito = idFavorito;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+
+    public LocalDateTime getDataAdicao() {
+        return dataAdicao;
+    }
+
+    public void setDataAdicao(LocalDateTime dataAdicao) {
+        this.dataAdicao = dataAdicao;
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\Local.java ==========
+
+
+package br.com.bmap.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "LOCAIS")
+public class Local {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_LOCAL")
+    private Long idLocal;
+
+    @Column(name = "NOME", nullable = false, length = 150)
+    private String nome;
+
+    @Column(name = "CATEGORIA", nullable = false, length = 80)
+    private String categoria;
+
+    @Column(name = "ENDERECO", nullable = false, length = 255)
+    private String endereco;
+
+    @Column(name = "LATITUDE", precision = 10, scale = 7)
+    private java.math.BigDecimal latitude;
+
+    @Column(name = "LONGITUDE", precision = 10, scale = 7)
+    private java.math.BigDecimal longitude;
+
+    @Column(name = "DESCRICAO", columnDefinition = "TEXT")
+    private String descricao;
+
+    public Long getIdLocal() {
+        return idLocal;
+    }
+
+    public void setIdLocal(Long idLocal) {
+        this.idLocal = idLocal;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public java.math.BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(java.math.BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    public java.math.BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(java.math.BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\LocalRecurso.java ==========
+
+
+package br.com.bmap.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+
+@Entity
+@Table(
+    name = "LOCAL_RECURSOS",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            columnNames = {"ID_LOCAL", "ID_RECURSO"}
+        )
+    }
+)
+public class LocalRecurso {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_LOCAL_RECURSO")
+    private Long idLocalRecurso;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_LOCAL", nullable = false)
+    private Local local;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_RECURSO", nullable = false)
+    private TipoRecurso tipoRecurso;
+
+    @Column(name = "DISPONIVEL", length = 1)
+    private String disponivel;
+
+    @Column(name = "OBSERVACAO", length = 500)
+    private String observacao;
+
+    public Long getIdLocalRecurso() {
+        return idLocalRecurso;
+    }
+
+    public void setIdLocalRecurso(Long idLocalRecurso) {
+        this.idLocalRecurso = idLocalRecurso;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+
+    public TipoRecurso getTipoRecurso() {
+        return tipoRecurso;
+    }
+
+    public void setTipoRecurso(TipoRecurso tipoRecurso) {
+        this.tipoRecurso = tipoRecurso;
+    }
+
+    public String getDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(String disponivel) {
+        this.disponivel = disponivel;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\PreferenciaAcessibilidade.java ==========
+
+package br.com.bmap.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.FetchType;
+
+
+@Entity
+@Table(name = "PREFERENCIAS_ACESSIBILIDADE")
+public class PreferenciaAcessibilidade {
+
+    @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "ID_PREFERENCIA")
+private Long idPreferencia;
+
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "ID_USUARIO", nullable = false)
+private Usuario usuario;
+
+@Column(name = "TIPO_DEFICIENCIA", length = 80)
+private String tipoDeficiencia;
+
+@Column(name = "NECESSIDADE", nullable = false, length = 150)
+private String necessidade;
+
+@Column(name = "DESCRICAO", length = 500)
+private String descricao;
+
+public Long getIdPreferencia() {
+    return idPreferencia;
+}
+
+public void setIdPreferencia(Long idPreferencia) {
+    this.idPreferencia = idPreferencia;
+}
+
+public Usuario getUsuario() {
+    return usuario;
+}
+
+public void setUsuario(Usuario usuario) {
+    this.usuario = usuario;
+}
+
+public String getTipoDeficiencia() {
+    return tipoDeficiencia;
+}
+
+public void setTipoDeficiencia(String tipoDeficiencia) {
+    this.tipoDeficiencia = tipoDeficiencia;
+}
+
+public String getNecessidade() {
+    return necessidade;
+}
+
+public void setNecessidade(String necessidade) {
+    this.necessidade = necessidade;
+}
+
+public String getDescricao() {
+    return descricao;
+}
+
+public void setDescricao(String descricao) {
+    this.descricao = descricao;
+}
+
+}
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\RelatoAcessibilidade.java ==========
+
+
+package br.com.bmap.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "RELATOS_ACESSIBILIDADE")
+public class RelatoAcessibilidade {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_RELATO")
+    private Long idRelato;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO", nullable = false)
+    private Usuario usuario;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_LOCAL", nullable = false)
+    private Local local;
+
+    @Column(name = "DESCRICAO", nullable = false, columnDefinition = "TEXT")
+    private String descricao;
+
+    @Column(name = "DATA_RELATO")
+    private LocalDateTime dataRelato;
+
+    @Column(name = "STATUS", length = 30)
+    private String status;
+
+    public Long getIdRelato() {
+        return idRelato;
+    }
+
+    public void setIdRelato(Long idRelato) {
+        this.idRelato = idRelato;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public LocalDateTime getDataRelato() {
+        return dataRelato;
+    }
+
+    public void setDataRelato(LocalDateTime dataRelato) {
+        this.dataRelato = dataRelato;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\ServicoEspecialidade.java ==========
+
+
+package br.com.bmap.model;
+
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "SERVICO_ESPECIALIDADE")
+public class ServicoEspecialidade {
+
+    @EmbeddedId
+    private ServicoEspecialidadeId id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("servico")
+    @JoinColumn(name = "ID_SERVICO")
+    private ServicoSaude servico;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("especialidade")
+    @JoinColumn(name = "ID_ESPECIALIDADE")
+    private Especialidade especialidade;
+
+    public ServicoEspecialidadeId getId() {
+        return id;
+    }
+
+    public void setId(ServicoEspecialidadeId id) {
+        this.id = id;
+    }
+
+    public ServicoSaude getServico() {
+        return servico;
+    }
+
+    public void setServico(ServicoSaude servico) {
+        this.servico = servico;
+    }
+
+    public Especialidade getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\ServicoEspecialidadeId.java ==========
+
+
+package br.com.bmap.model;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+import jakarta.persistence.Embeddable;
+
+@Embeddable
+public class ServicoEspecialidadeId implements Serializable {
+
+    private Long servico;
+    private Long especialidade;
+
+    public ServicoEspecialidadeId() {
+    }
+
+    public ServicoEspecialidadeId(Long servico, Long especialidade) {
+        this.servico = servico;
+        this.especialidade = especialidade;
+    }
+
+    public Long getServico() {
+        return servico;
+    }
+
+    public void setServico(Long servico) {
+        this.servico = servico;
+    }
+
+    public Long getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(Long especialidade) {
+        this.especialidade = especialidade;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ServicoEspecialidadeId)) return false;
+        ServicoEspecialidadeId that = (ServicoEspecialidadeId) o;
+        return Objects.equals(servico, that.servico)
+                && Objects.equals(especialidade, that.especialidade);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(servico, especialidade);
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\ServicoSaude.java ==========
+
+
+package br.com.bmap.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "SERVICOS_SAUDE")
+public class ServicoSaude {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_SERVICO")
+    private Long idServico;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_LOCAL", nullable = false)
+    private Local local;
+
+    @Column(name = "NOME", nullable = false, length = 150)
+    private String nome;
+
+    @Column(name = "TELEFONE", length = 30)
+    private String telefone;
+
+    @Column(name = "DESCRICAO", columnDefinition = "TEXT")
+    private String descricao;
+
+    public Long getIdServico() {
+        return idServico;
+    }
+
+    public void setIdServico(Long idServico) {
+        this.idServico = idServico;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+}
+
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\TipoRecurso.java ==========
+
+
+package br.com.bmap.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "TIPOS_RECURSOS")
+public class TipoRecurso {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_RECURSO")
+    private Long idRecurso;
+
+    @Column(name = "NOME", nullable = false, unique = true, length = 100)
+    private String nome;
+
+    @Column(name = "DESCRICAO", length = 500)
+    private String descricao;
+
+    public Long getIdRecurso() {
+        return idRecurso;
+    }
+
+    public void setIdRecurso(Long idRecurso) {
+        this.idRecurso = idRecurso;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+}
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\Usuario.java ==========
+
+package br.com.bmap.model;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "USUARIOS")
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_USUARIO")
+    private Long idUsuario;
+
+    @Column(name = "NOME", nullable = false, length = 100)
+    private String nome;
+
+    @Column(name = "EMAIL", nullable = false, unique = true, length = 150)
+private String email;
+
+@Column(name = "SENHA_HASH", nullable = false, length = 255)
+private String senhaHash;
+
+@Column(name = "DATA_CADASTRO")
+private LocalDateTime dataCadastro;
+
+@Column(name = "STATUS", length = 1)
+private String status;
+
+public Long getIdUsuario() {
+    return idUsuario;
+}
+
+public void setIdUsuario(Long idUsuario) {
+    this.idUsuario = idUsuario;
+}
+
+public String getNome() {
+    return nome;
+}
+
+public void setNome(String nome) {
+    this.nome = nome;
+}
+
+public String getEmail() {
+    return email;
+}
+
+public void setEmail(String email) {
+    this.email = email;
+}
+
+public String getSenhaHash() {
+    return senhaHash;
+}
+
+public void setSenhaHash(String senhaHash) {
+    this.senhaHash = senhaHash;
+}
+
+public LocalDateTime getDataCadastro() {
+    return dataCadastro;
+}
+
+public void setDataCadastro(LocalDateTime dataCadastro) {
+    this.dataCadastro = dataCadastro;
+}
+
+public String getStatus() {
+    return status;
+}
+
+public void setStatus(String status) {
+    this.status = status;
+}
+
+}
+
+
+
+
+========== C:\Users\Usuário\Downloads\Gs\src\main\java\br\com\bmap\model\Validacao.java ==========
+
+
+package br.com.bmap.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+
+@Entity
+@Table(
+    name = "VALIDACOES",
+    uniqueConstraints = @UniqueConstraint(
+        columnNames = {"ID_RELATO", "ID_USUARIO"}
+    )
+)
+public class Validacao {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_VALIDACAO")
+    private Long idValidacao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_RELATO", nullable = false)
+    private RelatoAcessibilidade relato;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO", nullable = false)
+    private Usuario usuario;
+
+    @Column(name = "TIPO_VALIDACAO", nullable = false, length = 30)
+    private String tipoValidacao;
+
+    @Column(name = "DATA_VALIDACAO")
+    private LocalDateTime dataValidacao;
+
+    public Long getIdValidacao() {
+        return idValidacao;
+    }
+
+    public void setIdValidacao(Long idValidacao) {
+        this.idValidacao = idValidacao;
+    }
+
+    public RelatoAcessibilidade getRelato() {
+        return relato;
+    }
+
+    public void setRelato(RelatoAcessibilidade relato) {
+        this.relato = relato;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getTipoValidacao() {
+        return tipoValidacao;
+    }
+
+    public void setTipoValidacao(String tipoValidacao) {
+        this.tipoValidacao = tipoValidacao;
+    }
+
+    public LocalDateTime getDataValidacao() {
+        return dataValidacao;
+    }
+
+    public void setDataValidacao(LocalDateTime dataValidacao) {
+        this.dataValidacao = dataValidacao;
+    }
+}
