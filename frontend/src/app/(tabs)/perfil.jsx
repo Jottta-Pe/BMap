@@ -12,45 +12,62 @@ import {
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
-source={require('../../assets/images/icone-acessibilidade.jpg')}
+import { router } from 'expo-router';
+import BottomNav from '../../components/BottomNav';
 
 export default function Perfil() {
     const [nome] = useState('Usuário BMap');
-
-    const avisar = (recurso) => {
-        Alert.alert(
-            'BMap',
-            `${recurso} será integrado em breve!`
-        );
-    };
 
     const opcoes = [
         {
             titulo: 'Meus dados',
             descricao: 'Informações pessoais e conta',
             icone: 'person-outline',
+            rota: '/(tabs)/meus-dados',
         },
         {
             titulo: 'Acessibilidade',
             descricao: 'Configure suas preferências',
             icone: 'accessibility-outline',
+            rota: '/(tabs)/acessibilidade',
         },
         {
             titulo: 'Notificações',
             descricao: 'Gerencie seus avisos',
             icone: 'notifications-outline',
+            rota: '/(tabs)/notificacoes',
         },
         {
             titulo: 'Privacidade e segurança',
             descricao: 'Controle seus dados',
             icone: 'shield-checkmark-outline',
+            rota: '/(tabs)/privacidade',
         },
         {
             titulo: 'Ajuda e suporte',
             descricao: 'Precisa de ajuda?',
             icone: 'help-circle-outline',
+            rota: '/(tabs)/ajuda',
         },
     ];
+
+    const sairDaConta = () => {
+        Alert.alert(
+            'Sair da conta',
+            'Tem certeza de que deseja sair do BMap?',
+            [
+                {
+                    text: 'Cancelar',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Sair',
+                    style: 'destructive',
+                    onPress: () => router.replace('/login'),
+                },
+            ]
+        );
+    };
 
     return (
         <View style={styles.container}>
@@ -72,7 +89,7 @@ export default function Perfil() {
 
                     <TouchableOpacity
                         style={styles.settingsButton}
-                        onPress={() => avisar('Configurações')}
+                        onPress={() => router.push('/(tabs)/configuracoes')}
                     >
                         <Ionicons
                             name="settings-outline"
@@ -100,13 +117,14 @@ export default function Perfil() {
 
                     <TouchableOpacity
                         style={styles.editButton}
-                        onPress={() => avisar('Editar perfil')}
+                        onPress={() => router.push('/(tabs)/meus-dados')}
                     >
                         <Ionicons
                             name="create-outline"
                             size={17}
                             color="#7040A5"
                         />
+
                         <Text style={styles.editText}>
                             Editar perfil
                         </Text>
@@ -121,14 +139,16 @@ export default function Perfil() {
                 <View style={styles.summaryContainer}>
                     <TouchableOpacity
                         style={styles.summaryCard}
-                        onPress={() => avisar('Meus favoritos')}
+                        onPress={() => router.push('/(tabs)/favoritos')}
                     >
                         <Ionicons
                             name="heart"
                             size={25}
                             color="#D94C75"
                         />
+
                         <Text style={styles.summaryNumber}>03</Text>
+
                         <Text style={styles.summaryLabel}>
                             Favoritos
                         </Text>
@@ -136,14 +156,21 @@ export default function Perfil() {
 
                     <TouchableOpacity
                         style={styles.summaryCard}
-                        onPress={() => avisar('Histórico')}
+                        onPress={() =>
+                            Alert.alert(
+                                'Histórico',
+                                'O histórico de atividades estará disponível em uma próxima atualização.'
+                            )
+                        }
                     >
                         <Ionicons
                             name="time-outline"
                             size={25}
                             color="#7040A5"
                         />
+
                         <Text style={styles.summaryNumber}>--</Text>
+
                         <Text style={styles.summaryLabel}>
                             Histórico
                         </Text>
@@ -164,7 +191,7 @@ export default function Perfil() {
                                 index !== opcoes.length - 1 &&
                                     styles.optionBorder,
                             ]}
-                            onPress={() => avisar(opcao.titulo)}
+                            onPress={() => router.push(opcao.rota)}
                         >
                             <View style={styles.optionIcon}>
                                 <Ionicons
@@ -196,27 +223,30 @@ export default function Perfil() {
                 {/* SOBRE */}
                 <TouchableOpacity
                     style={styles.aboutButton}
-                    onPress={() => avisar('Sobre o BMap')}
+                    onPress={() => router.push('/(tabs)/sobre')}
                 >
                     <Ionicons
                         name="information-circle-outline"
                         size={21}
                         color="#7040A5"
                     />
+
                     <Text style={styles.aboutText}>
                         Sobre o BMap
                     </Text>
                 </TouchableOpacity>
 
+                {/* SAIR */}
                 <TouchableOpacity
                     style={styles.logoutButton}
-                    onPress={() => avisar('Sair da conta')}
+                    onPress={sairDaConta}
                 >
                     <Ionicons
                         name="log-out-outline"
                         size={20}
                         color="#D94C75"
                     />
+
                     <Text style={styles.logoutText}>
                         Sair da conta
                     </Text>

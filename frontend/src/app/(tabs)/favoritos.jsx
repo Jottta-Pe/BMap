@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
-source={require('../../assets/images/icone-acessibilidade.jpg')}
+import BottomNav from '../../components/BottomNav';
 
 const locaisIniciais = [
     {
@@ -49,7 +49,10 @@ export default function Favoritos() {
             'Remover favorito',
             `Deseja remover ${nome} dos seus favoritos?`,
             [
-                { text: 'Cancelar', style: 'cancel' },
+                {
+                    text: 'Cancelar',
+                    style: 'cancel',
+                },
                 {
                     text: 'Remover',
                     style: 'destructive',
@@ -60,6 +63,13 @@ export default function Favoritos() {
                     },
                 },
             ]
+        );
+    };
+
+    const verDetalhes = (local) => {
+        Alert.alert(
+            local.nome,
+            `Categoria: ${local.categoria}\n\nEndereço: ${local.endereco}\n\nRecursos de acessibilidade:\n${local.recursos.map((item) => `• ${item}`).join('\n')}`
         );
     };
 
@@ -74,7 +84,6 @@ export default function Favoritos() {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.content}
             >
-                {/* CABEÇALHO */}
                 <View style={styles.header}>
                     <View>
                         <Text style={styles.logo}>BMap</Text>
@@ -92,7 +101,6 @@ export default function Favoritos() {
                     </View>
                 </View>
 
-                {/* TÍTULO */}
                 <View style={styles.intro}>
                     <Text style={styles.title}>Meus favoritos</Text>
 
@@ -102,7 +110,6 @@ export default function Favoritos() {
                     </Text>
                 </View>
 
-                {/* CONTADOR */}
                 <View style={styles.counterCard}>
                     <View style={styles.counterIcon}>
                         <Ionicons
@@ -116,13 +123,13 @@ export default function Favoritos() {
                         <Text style={styles.counterNumber}>
                             {locais.length}
                         </Text>
+
                         <Text style={styles.counterLabel}>
                             locais salvos
                         </Text>
                     </View>
                 </View>
 
-                {/* LISTA */}
                 <View style={styles.sectionHeader}>
                     <Text style={styles.sectionTitle}>
                         Locais salvos
@@ -160,6 +167,8 @@ export default function Favoritos() {
                                     onPress={() =>
                                         removerFavorito(local.id, local.nome)
                                     }
+                                    accessibilityRole="button"
+                                    accessibilityLabel={`Remover ${local.nome} dos favoritos`}
                                 >
                                     <Ionicons
                                         name="heart"
@@ -188,12 +197,16 @@ export default function Favoritos() {
                             </Text>
 
                             {local.recursos.map((recurso, index) => (
-                                <View key={index} style={styles.resourceRow}>
+                                <View
+                                    key={`${local.id}-${index}`}
+                                    style={styles.resourceRow}
+                                >
                                     <Ionicons
                                         name="checkmark-circle"
                                         size={15}
                                         color="#48A868"
                                     />
+
                                     <Text style={styles.resourceText}>
                                         {recurso}
                                     </Text>
@@ -202,12 +215,7 @@ export default function Favoritos() {
 
                             <TouchableOpacity
                                 style={styles.detailsButton}
-                                onPress={() =>
-                                    Alert.alert(
-                                        local.nome,
-                                        'Os detalhes deste local serão integrados em breve!'
-                                    )
-                                }
+                                onPress={() => verDetalhes(local)}
                             >
                                 <Text style={styles.detailsText}>
                                     Ver detalhes

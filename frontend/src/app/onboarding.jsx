@@ -20,7 +20,7 @@ export default function Onboarding() {
 
       <View style={styles.content}>
         <Image
-          source={require('../../assets/images/icone-acessibilidade.jpg')}
+          source={require('../../assets/images/icone-acessibilidade.png')}
           style={styles.icon}
           resizeMode="contain"
         />

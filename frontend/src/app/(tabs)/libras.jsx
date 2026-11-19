@@ -13,15 +13,69 @@ import {
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
-source={require('../../assets/images/icone-acessibilidade.jpg')}
+import BottomNav from '../../components/BottomNav';
 
 export default function Libras() {
     const [mensagem, setMensagem] = useState('');
+    const [mensagemEnviada, setMensagemEnviada] = useState('');
+    const [historico, setHistorico] = useState([]);
 
     const avisar = (recurso) => {
         Alert.alert(
             'BMap Connect',
             `${recurso} será integrado em breve!`
+        );
+    };
+
+    const enviarMensagem = () => {
+        if (!mensagem.trim()) {
+            Alert.alert('Atenção', 'Digite uma mensagem primeiro.');
+            return;
+        }
+
+        const novaMensagem = mensagem.trim();
+
+        setMensagemEnviada(novaMensagem);
+        setHistorico((anterior) => [novaMensagem, ...anterior]);
+        setMensagem('');
+
+        Alert.alert(
+            'Mensagem recebida!',
+            'Sua mensagem foi registrada e está pronta para a integração com a tradução em Libras.'
+        );
+    };
+
+    const abrirHistorico = () => {
+        if (historico.length === 0) {
+            Alert.alert('Histórico', 'Você ainda não enviou nenhuma mensagem.');
+            return;
+        }
+
+        Alert.alert(
+            'Histórico de mensagens',
+            historico.map((item, index) => `${index + 1}. ${item}`).join('\n\n')
+        );
+    };
+
+    const abrirFrases = () => {
+        const frases = [
+            'Olá, tudo bem?',
+            'Preciso de ajuda.',
+            'Onde fica o banheiro?',
+            'Obrigado pela atenção!',
+            'Você pode me ajudar?',
+        ];
+
+        Alert.alert(
+            'Frases rápidas',
+            'Escolha uma frase:',
+            [
+                ...frases.map((frase) => ({
+                    text: frase,
+                    onPress: () => setMensagem(frase),
+                })),
+                { text: 'Cancelar', style: 'cancel' },
+            ]
         );
     };
 
@@ -77,10 +131,24 @@ export default function Libras() {
                         Seu intérprete virtual aparecerá aqui
                     </Text>
 
+                    {mensagemEnviada ? (
+                        <View style={styles.messageBox}>
+                            <Text style={styles.messageLabel}>
+                                Última mensagem:
+                            </Text>
+
+                            <Text style={styles.messageText}>
+                                {mensagemEnviada}
+                            </Text>
+                        </View>
+                    ) : null}
+
                     <View style={styles.status}>
                         <View style={styles.statusDot} />
                         <Text style={styles.statusText}>
-                            Aguardando mensagem
+                            {mensagemEnviada
+                                ? 'Mensagem registrada'
+                                : 'Aguardando mensagem'}
                         </Text>
                     </View>
                 </View>
@@ -100,7 +168,7 @@ export default function Libras() {
                     />
 
                     <TouchableOpacity
-                        onPress={() => avisar('Tradução para Libras')}
+                        onPress={enviarMensagem}
                         style={styles.sendButton}
                     >
                         <Ionicons
@@ -149,14 +217,16 @@ export default function Libras() {
                 <View style={styles.features}>
                     <TouchableOpacity
                         style={styles.featureCard}
-                        onPress={() => avisar('Histórico')}
+                        onPress={abrirHistorico}
                     >
                         <Ionicons
                             name="time-outline"
                             size={27}
                             color="#7040A5"
                         />
+
                         <Text style={styles.featureTitle}>Histórico</Text>
+
                         <Text style={styles.featureDescription}>
                             Mensagens anteriores
                         </Text>
@@ -164,14 +234,16 @@ export default function Libras() {
 
                     <TouchableOpacity
                         style={styles.featureCard}
-                        onPress={() => avisar('Frases rápidas')}
+                        onPress={abrirFrases}
                     >
                         <Ionicons
                             name="chatbubbles-outline"
                             size={27}
                             color="#7040A5"
                         />
+
                         <Text style={styles.featureTitle}>Frases rápidas</Text>
+
                         <Text style={styles.featureDescription}>
                             Expressões comuns
                         </Text>
@@ -273,6 +345,28 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#88818F',
         marginTop: 5,
+        textAlign: 'center',
+    },
+
+    messageBox: {
+        width: '100%',
+        backgroundColor: '#F8F6FC',
+        padding: 12,
+        borderRadius: 12,
+        marginTop: 15,
+    },
+
+    messageLabel: {
+        fontSize: 11,
+        fontWeight: 'bold',
+        color: '#7040A5',
+        marginBottom: 5,
+    },
+
+    messageText: {
+        fontSize: 13,
+        color: '#30243D',
+        lineHeight: 19,
     },
 
     status: {
