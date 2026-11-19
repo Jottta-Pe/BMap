@@ -20,7 +20,7 @@ export default function Onboarding() {
 
       <View style={styles.content}>
         <Image
-          source={require('../../assets/images/icone-acessibilidade.png')}
+          source={require('../../assets/images/icone-acessibilidade.jpg')}
           style={styles.icon}
           resizeMode="contain"
         />
@@ -37,12 +37,6 @@ export default function Onboarding() {
       </View>
 
       <View style={styles.footer}>
-        <View style={styles.pagination}>
-          <View style={styles.activeDot} />
-          <View style={styles.dot} />
-          <View style={styles.dot} />
-        </View>
-
         <TouchableOpacity
           style={styles.button}
           onPress={() => router.push('/login')}
@@ -99,27 +93,6 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: 'center',
     paddingBottom: 35,
-  },
-
-  pagination: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 28,
-    gap: 8,
-  },
-
-  activeDot: {
-    width: 24,
-    height: 8,
-    borderRadius: 10,
-    backgroundColor: '#7040A5',
-  },
-
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 10,
-    backgroundColor: '#D8CBE8',
   },
 
   button: {
