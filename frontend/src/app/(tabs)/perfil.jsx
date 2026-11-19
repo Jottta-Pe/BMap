@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
-import BottomNav from '../components/BottomNav';
+source={require('../../assets/images/icone-acessibilidade.jpg')}
 
 export default function Perfil() {
     const [nome] = useState('Usuário BMap');

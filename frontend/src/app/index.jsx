@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,17 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
+import { router } from 'expo-router';
 
 export default function Index() {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.replace('/onboarding');
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -50,32 +59,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   content: {
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   logo: {
     width: 260,
     height: 200,
     marginBottom: 15,
   },
-
   title: {
     fontSize: 30,
     fontWeight: 'bold',
     color: '#7040A5',
     marginTop: 10,
   },
-
   subtitle: {
     fontSize: 15,
     fontWeight: '600',
     color: '#2872D8',
     marginTop: 8,
   },
-
   loading: {
     position: 'absolute',
     bottom: 95,
