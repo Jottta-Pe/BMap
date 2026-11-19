@@ -1,302 +1,323 @@
 
 import React, { useState } from 'react';
+
 import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-  Image,
-  ScrollView,
+    View,
+    Text,
+    TextInput,
+    StyleSheet,
+    StatusBar,
+    TouchableOpacity,
+    Image,
+    ScrollView,
+    Alert,
 } from 'react-native';
+
 import { router } from 'expo-router';
 
 export default function Cadastro() {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [confirmarSenha, setConfirmarSenha] = useState('');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmarSenha, setConfirmarSenha] = useState('');
 
-  const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
+    const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
-  return (
-    <View style={styles.container}>
-      <StatusBar
-        backgroundColor="#FFFFFF"
-        barStyle="dark-content"
-      />
+    const cadastrar = () => {
+        if (!nome.trim() || !email.trim() || !senha || !confirmarSenha) {
+            Alert.alert('Atenção', 'Preencha todos os campos.');
+            return;
+        }
 
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
+        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
-        {/* Cabeçalho */}
-        <View style={styles.header}>
-          <Image
-            source={require('../../assets/images/logo-bmap.jpg')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
+        if (!emailValido) {
+            Alert.alert('E-mail inválido', 'Digite um endereço de e-mail válido.');
+            return;
+        }
 
-          <Text style={styles.brand}>BMap</Text>
-        </View>
+        if (senha.length < 6) {
+            Alert.alert('Senha inválida', 'A senha deve ter pelo menos 6 caracteres.');
+            return;
+        }
 
-        {/* Conteúdo */}
-        <View style={styles.content}>
-          <Text style={styles.title}>
-            Crie sua conta!
-          </Text>
+        if (senha !== confirmarSenha) {
+            Alert.alert('Senhas diferentes', 'Confira a confirmação da sua senha.');
+            return;
+        }
 
-          <Text style={styles.subtitle}>
-            Faça parte do BMap e descubra um mundo com mais acessibilidade.
-          </Text>
+        Alert.alert(
+            'Cadastro validado!',
+            'Os dados foram preenchidos corretamente. A integração com o servidor será realizada em seguida.',
+            [
+                {
+                    text: 'Ir para login',
+                    onPress: () => router.replace('/login'),
+                },
+            ]
+        );
+    };
 
-          {/* Nome */}
-          <TextInput
-            style={styles.input}
-            placeholder="Nome completo"
-            placeholderTextColor="#888888"
-            autoCapitalize="words"
-            value={nome}
-            onChangeText={setNome}
-          />
+    return (
+        <View style={styles.container}>
+            <StatusBar backgroundColor="#FFFFFF" barStyle="dark-content" />
 
-          {/* E-mail */}
-          <TextInput
-            style={styles.input}
-            placeholder="E-mail"
-            placeholderTextColor="#888888"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            value={email}
-            onChangeText={setEmail}
-          />
-
-          {/* Senha */}
-          <View style={styles.passwordContainer}>
-            <TextInput
-              style={styles.passwordInput}
-              placeholder="Senha"
-              placeholderTextColor="#888888"
-              secureTextEntry={!mostrarSenha}
-              value={senha}
-              onChangeText={setSenha}
-            />
-
-            <TouchableOpacity
-              style={styles.eyeButton}
-              onPress={() => setMostrarSenha(!mostrarSenha)}
+            <ScrollView
+                contentContainerStyle={styles.scrollContent}
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
             >
-              <Text style={styles.eyeIcon}>
-                {mostrarSenha ? '⊘' : '◉'}
-              </Text>
-            </TouchableOpacity>
-          </View>
+                <View style={styles.header}>
+                    <Image
+                        source={require('../../assets/images/logo-bmap.png')}
+                        style={styles.logo}
+                        resizeMode="contain"
+                    />
 
-          {/* Confirmar senha */}
-          <View style={styles.passwordContainer}>
-            <TextInput
-              style={styles.passwordInput}
-              placeholder="Confirmar senha"
-              placeholderTextColor="#888888"
-              secureTextEntry={!mostrarConfirmacao}
-              value={confirmarSenha}
-              onChangeText={setConfirmarSenha}
-            />
+                    <Text style={styles.brand}>BMap</Text>
+                </View>
 
-            <TouchableOpacity
-              style={styles.eyeButton}
-              onPress={() =>
-                setMostrarConfirmacao(!mostrarConfirmacao)
-              }
-            >
-              <Text style={styles.eyeIcon}>
-                {mostrarConfirmacao ? '⊘' : '◉'}
-              </Text>
-            </TouchableOpacity>
-          </View>
+                <View style={styles.content}>
+                    <Text style={styles.title}>
+                        Crie sua conta!
+                    </Text>
 
-          {/* Botão cadastrar */}
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>
-              Criar conta
-            </Text>
-          </TouchableOpacity>
+                    <Text style={styles.subtitle}>
+                        Faça parte do BMap e descubra um mundo com mais acessibilidade.
+                    </Text>
 
-          {/* Login */}
-          <View style={styles.loginContainer}>
-            <Text style={styles.loginText}>
-              Já possui uma conta?
-            </Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Nome completo"
+                        placeholderTextColor="#888888"
+                        autoCapitalize="words"
+                        value={nome}
+                        onChangeText={setNome}
+                    />
 
-            <TouchableOpacity onPress={() => router.replace('/login')}>
-              <Text style={styles.loginLink}>
-                {' '}Entrar
-              </Text>
-            </TouchableOpacity>
-          </View>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="E-mail"
+                        placeholderTextColor="#888888"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        value={email}
+                        onChangeText={setEmail}
+                    />
 
-          {/* Termos */}
-          <Text style={styles.terms}>
-            Ao continuar, você concorda com nossos{' '}
-            <Text style={styles.termsLink}>
-              Termos de Uso
-            </Text>
-            {' '}e{' '}
-            <Text style={styles.termsLink}>
-              Política de Privacidade
-            </Text>.
-          </Text>
+                    <View style={styles.passwordContainer}>
+                        <TextInput
+                            style={styles.passwordInput}
+                            placeholder="Senha"
+                            placeholderTextColor="#888888"
+                            secureTextEntry={!mostrarSenha}
+                            value={senha}
+                            onChangeText={setSenha}
+                        />
+
+                        <TouchableOpacity
+                            style={styles.eyeButton}
+                            onPress={() => setMostrarSenha(!mostrarSenha)}
+                        >
+                            <Text style={styles.eyeIcon}>
+                                {mostrarSenha ? '⊘' : '◉'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.passwordContainer}>
+                        <TextInput
+                            style={styles.passwordInput}
+                            placeholder="Confirmar senha"
+                            placeholderTextColor="#888888"
+                            secureTextEntry={!mostrarConfirmacao}
+                            value={confirmarSenha}
+                            onChangeText={setConfirmarSenha}
+                        />
+
+                        <TouchableOpacity
+                            style={styles.eyeButton}
+                            onPress={() => setMostrarConfirmacao(!mostrarConfirmacao)}
+                        >
+                            <Text style={styles.eyeIcon}>
+                                {mostrarConfirmacao ? '⊘' : '◉'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={cadastrar}
+                    >
+                        <Text style={styles.buttonText}>
+                            Criar conta
+                        </Text>
+                    </TouchableOpacity>
+
+                    <View style={styles.loginContainer}>
+                        <Text style={styles.loginText}>
+                            Já possui uma conta?
+                        </Text>
+
+                        <TouchableOpacity onPress={() => router.replace('/login')}>
+                            <Text style={styles.loginLink}> Entrar</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <Text style={styles.terms}>
+                        Ao continuar, você concorda com nossos{' '}
+                        <Text style={styles.termsLink}>Termos de Uso</Text>
+                        {' '}e{' '}
+                        <Text style={styles.termsLink}>Política de Privacidade</Text>.
+                    </Text>
+                </View>
+            </ScrollView>
         </View>
-      </ScrollView>
-    </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 25,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+        paddingHorizontal: 25,
+    },
 
-  scrollContent: {
-    flexGrow: 1,
-  },
+    scrollContent: {
+        flexGrow: 1,
+    },
 
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 25,
-  },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 25,
+    },
 
-  logo: {
-    width: 75,
-    height: 75,
-  },
+    logo: {
+        width: 75,
+        height: 75,
+    },
 
-  brand: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#7040A5',
-    marginLeft: 10,
-  },
+    brand: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#7040A5',
+        marginLeft: 10,
+    },
 
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 30,
-  },
+    content: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 30,
+    },
 
-  title: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#7040A5',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
+    title: {
+        fontSize: 26,
+        fontWeight: 'bold',
+        color: '#7040A5',
+        marginBottom: 10,
+        textAlign: 'center',
+    },
 
-  subtitle: {
-    fontSize: 15,
-    lineHeight: 23,
-    color: '#666666',
-    marginBottom: 30,
-    textAlign: 'center',
-  },
+    subtitle: {
+        fontSize: 15,
+        lineHeight: 23,
+        color: '#666666',
+        marginBottom: 30,
+        textAlign: 'center',
+    },
 
-  input: {
-    width: '100%',
-    height: 52,
-    borderWidth: 1,
-    borderColor: '#D8CBE8',
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    marginBottom: 16,
-    fontSize: 15,
-    color: '#333333',
-  },
+    input: {
+        width: '100%',
+        height: 52,
+        borderWidth: 1,
+        borderColor: '#D8CBE8',
+        borderRadius: 12,
+        paddingHorizontal: 15,
+        marginBottom: 16,
+        fontSize: 15,
+        color: '#333333',
+    },
 
-  passwordContainer: {
-    width: '100%',
-    height: 52,
-    borderWidth: 1,
-    borderColor: '#D8CBE8',
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
+    passwordContainer: {
+        width: '100%',
+        height: 52,
+        borderWidth: 1,
+        borderColor: '#D8CBE8',
+        borderRadius: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 16,
+    },
 
-  passwordInput: {
-    flex: 1,
-    height: '100%',
-    paddingHorizontal: 15,
-    fontSize: 15,
-    color: '#333333',
-  },
+    passwordInput: {
+        flex: 1,
+        height: '100%',
+        paddingHorizontal: 15,
+        fontSize: 15,
+        color: '#333333',
+    },
 
-  eyeButton: {
-    paddingHorizontal: 15,
-    height: '100%',
-    justifyContent: 'center',
-  },
+    eyeButton: {
+        paddingHorizontal: 15,
+        height: '100%',
+        justifyContent: 'center',
+    },
 
-  eyeIcon: {
-    fontSize: 21,
-    color: '#000000',
-  },
+    eyeIcon: {
+        fontSize: 21,
+        color: '#000000',
+    },
 
-  button: {
-    width: '80%',
-    backgroundColor: '#7040A5',
-    paddingVertical: 15,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 8,
-  },
+    button: {
+        width: '80%',
+        backgroundColor: '#7040A5',
+        paddingVertical: 15,
+        borderRadius: 12,
+        alignItems: 'center',
+        marginTop: 8,
+    },
 
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
+    buttonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
 
-  loginContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 30,
-  },
+    loginContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 30,
+    },
 
-  loginText: {
-    color: '#666666',
-    fontSize: 13,
-  },
+    loginText: {
+        color: '#666666',
+        fontSize: 13,
+    },
 
-  loginLink: {
-    color: '#7040A5',
-    fontSize: 13,
-    fontWeight: 'bold',
-  },
+    loginLink: {
+        color: '#7040A5',
+        fontSize: 13,
+        fontWeight: 'bold',
+    },
 
-  terms: {
-    fontSize: 11,
-    color: '#777777',
-    textAlign: 'center',
-    lineHeight: 18,
-    marginTop: 25,
-    paddingHorizontal: 5,
-  },
+    terms: {
+        fontSize: 11,
+        color: '#777777',
+        textAlign: 'center',
+        lineHeight: 18,
+        marginTop: 25,
+        paddingHorizontal: 5,
+    },
 
-  termsLink: {
-    color: '#7040A5',
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
-  },
+    termsLink: {
+        color: '#7040A5',
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
+    },
 });

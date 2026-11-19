@@ -1,18 +1,26 @@
 
+import React from 'react';
 import { Stack } from 'expo-router';
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
+import {
+    DarkTheme,
+    DefaultTheme,
+    ThemeProvider,
+} from 'expo-router';
 import { useColorScheme } from 'react-native';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+    const colorScheme = useColorScheme();
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="onboarding" />
-        <Stack.Screen name="explore" />
-      </Stack>
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Stack screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="index" />
+                <Stack.Screen name="onboarding" />
+                <Stack.Screen name="login" />
+                <Stack.Screen name="cadastro" />
+                <Stack.Screen name="esqueci-senha" />
+                <Stack.Screen name="(tabs)" />
+            </Stack>
+        </ThemeProvider>
+    );
 }

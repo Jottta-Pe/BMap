@@ -13,7 +13,7 @@ import {
 
 import { Ionicons } from '@expo/vector-icons';
 import { Map, Camera } from '@maplibre/maplibre-react-native';
-source={require('../../assets/images/icone-acessibilidade.jpg')}
+import BottomNav from '../../components/BottomNav';
 
 export default function Mapa() {
     const aviso = (recurso) => {

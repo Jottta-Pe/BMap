@@ -28,7 +28,7 @@ export default function Index() {
 
       <View style={styles.content}>
         <Image
-          source={require('../../assets/images/logo-bmap.jpg')}
+          source={require('../../assets/images/logo-bmap.png')}
           style={styles.logo}
           resizeMode="contain"
         />
